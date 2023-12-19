@@ -1,0 +1,28 @@
+{
+  "name": "",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/functions/*.js",
+  "scripts": {
+    "start": "func start",
+    "test": "echo \"No tests yet...\""
+  },
+  "dependencies": {
+    "@azure/cognitiveservices-computervision": "^8.2.0",
+    "@azure/cosmos": "^4.0.0",
+    "@azure/functions": "^4.0.0-alpha.7",
+    "@azure/ms-rest-js": "^2.7.0",
+    "@azure/msal-node": "^2.2.0",
+    "@azure/storage-blob": "^12.16.0",
+    "@microsoft/microsoft-graph-client": "^3.0.7",
+    "async": "^3.2.5",
+    "dotenv": "^16.3.1",
+    "github": "^14.0.0",
+    "mssql": "^10.0.1",
+    "regex": "^0.1.1",
+    "sharp": "^0.32.6"
+  },
+  "devDependencies": {
+    "azure-functions-core-tools": "^4.x"
+  }
+}
