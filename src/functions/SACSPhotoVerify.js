@@ -12,6 +12,7 @@ const ComputerVisionClient =
 const ApiKeyCredentials = require("@azure/ms-rest-js").ApiKeyCredentials;
 const async = require("async");
 const { multiFaceEmail } = require("./multiFaceEmail");
+//const BlurryDetector = require("blurry-detector");
 
 module.exports = app.storageBlob("SACSPhotoVerify", {
   path: "images/{name}",
@@ -85,6 +86,17 @@ module.exports = app.storageBlob("SACSPhotoVerify", {
         // Detect Colors
         const color = result.color;
         const colorTest = result.color.isBwImg;
+
+        // // Detect Blurryness
+        // const detector = new BlurryDetector();
+
+        // detector.isImageBlurry(describeURL).then((isBlurry) => {
+        //   if (isBlurry) {
+        //     console.log("The Image is BLURRED");
+        //   } else {
+        //     console.log("The image is NOT BLURRED");
+        //   }
+        // });
 
         // Log the color information
         console.log("color", color);
@@ -177,6 +189,7 @@ module.exports = app.storageBlob("SACSPhotoVerify", {
             }
           };
           const sunglassRes = isWearingSunglasses();
+          const blur = face.faceAttributes.blur.blurLevel;
 
           console.log("Face ID:", face.faceId);
           console.log("Is Wearing Sunglasses:", sunglassRes);
@@ -184,6 +197,7 @@ module.exports = app.storageBlob("SACSPhotoVerify", {
           console.log("Is Wearing Headwear:", headwear);
           console.log("Is not Facing camera?:", notFacingCamera());
           console.log("Is the image black and white?:", BlackWhite);
+          console.log("Is blur?", blur);
 
           resultDict[face.faceID] = {
             Sunglasses: sunglassRes,
@@ -191,6 +205,7 @@ module.exports = app.storageBlob("SACSPhotoVerify", {
             Mask: mask,
             NotFacingTheCamera: facingCameraRes,
             BwImg: BlackWhite,
+            //Blur: blurRes,
           };
         });
       }
