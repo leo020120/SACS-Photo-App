@@ -12,7 +12,9 @@ const ComputerVisionClient =
 const ApiKeyCredentials = require("@azure/ms-rest-js").ApiKeyCredentials;
 const async = require("async");
 const { multiFaceEmail } = require("./multiFaceEmail");
-//const BlurryDetector = require("blurry-detector");
+const BlurryDetector = require("blurry-detector");
+
+const detector = new BlurryDetector();
 
 module.exports = app.storageBlob("SACSPhotoVerify", {
   path: "images/{name}",
@@ -87,17 +89,6 @@ module.exports = app.storageBlob("SACSPhotoVerify", {
         const color = result.color;
         const colorTest = result.color.isBwImg;
 
-        // // Detect Blurryness
-        // const detector = new BlurryDetector();
-
-        // detector.isImageBlurry(describeURL).then((isBlurry) => {
-        //   if (isBlurry) {
-        //     console.log("The Image is BLURRED");
-        //   } else {
-        //     console.log("The image is NOT BLURRED");
-        //   }
-        // });
-
         // Log the color information
         console.log("color", color);
         console.log("COLOR TEST", colorTest);
@@ -109,6 +100,28 @@ module.exports = app.storageBlob("SACSPhotoVerify", {
       }
     }
     const BwImg = await analyzeImage(describeURL);
+
+    // Detect Blurryness
+
+    // async function imageBlur(describeURL) {
+    //   try {
+    //     const isBlurry = await detector.isImageBlurry(describeURL.toString());
+
+    //     if (isBlurry) {
+    //       console.log("The image is blurred!");
+    //     } else {
+    //       console.log("The image is sharp!");
+    //     }
+
+    //     return isBlurry;
+    //   } catch (error) {
+    //     console.error("BLUR ERROR:", error);
+    //     throw error;
+    //   }
+    // }
+
+    // imageBlur();
+    //console.log("BLUR RESULT", blurResult);
 
     //set up keys, endpoints etc for face api
     const faceKey = process.env.FACE_KEY;
